@@ -1,0 +1,36 @@
+#Coding:utf-8
+#Author:MuTou<****@163.com>
+#Time:2019/7/3 0003 下午 3:38
+#File:get_Contexts.py
+#Project_Name:
+#Content:文件说明
+from AppTest_Day_02.app_common.get_session import get_Session
+import time
+class  switch_WebView(get_Session):
+        def   get_context(self):
+            get_driver = self.return_driver()
+            time.sleep(10)
+            get_driver.find_element_by_android_uiautomator(
+                    'resourceId("com.baidu.yuedu:id/normalUpgradeBtn").fromParent(text("取消"))').click()
+            time.sleep(10)
+            get_driver.find_element_by_android_uiautomator('resourceId("com.baidu.yuedu:id/righttitle").text("图书")').click()
+            #获取上下文：
+            time.sleep(15)
+            print("当前上下文是：",get_driver.current_context)
+            print("所有的上下文有：",get_driver.contexts)
+            #get_driver.switch_to_window("NATIVE_APP")
+            #通过索引取上下文的名
+            #此处context无法直接调用；因为context方法不是直接定义switchto中而是定义MobileSwitchTo类中
+            #get_driver.switch_to.context(get_driver.contexts[2])
+            get_driver.switch_to.context("WEBVIEW_com.baidu.yuedu")
+            time.sleep(10)
+            print(get_driver.current_context)
+            #eles=get_driver.find_elements_by_class_name("huanyihuan-icon")
+            #print(eles)
+            #eles[0].click()
+            #get_driver.find_element_by_xpath("/html/body/div/div[2]/div[2]/div[1]/div/span[1]").click()
+            get_driver.find_element_by_xpath("//*[@id='carouselWrap']/div[1]/div/ul/li[6]/a/img").click()
+
+
+sa=switch_WebView("Android","5.1.1","127.0.0.1:62001",server_port=5656,appPackage="com.baidu.yuedu",appActivity=".base.ui.MainActivity",unicodeKeyboard=True,resetKeyboard=True)
+sa.get_context()
