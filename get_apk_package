@@ -1,0 +1,40 @@
+#Coding:utf-8
+#Author:MuTou<****@163.com>
+#Time:2019/7/3 0003 上午 10:26
+#File:get_apk_package.py
+#Project_Name:
+#Content:文件说明
+import os,subprocess
+
+#get=os.popen(r"aapt dump badging e:\jinritoutiao.apk",mode="r")
+class get_packageName():
+    def __init__(self,apk_path):
+        self.apk_path=apk_path
+
+    def get_column(self,str_test):
+        self.get_io()
+        get_index = self.get_text.index(str_test) + len(str_test)
+        get_second_index = self.get_text.index("'", get_index + 1)
+        return self.get_text[get_index:get_second_index]
+#subprocess：新建一个子进程;其子进程的输出流是None
+#stdout可以将命令行中的输出指定到IO流中;等价于命令重定向的操作
+    def get_io(self):
+        with open("e:\\test.txt",mode="rb+") as fp:
+            get1=subprocess.Popen("aapt dump badging %s"%self.apk_path,bufsize=100000,stdout=fp)
+            #get1.kill()
+            self.get_text=fp.read().decode("utf-8")
+    def get_appPackageName(self):
+            str1="package: name='"
+            return self.get_column(str1)
+    def get_appActivityName(self):
+            str2="launchable-activity: name='"
+            return self.get_column(str2)
+
+
+
+
+
+
+
+
+
